@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>EODIYEO - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- DataTables CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <!-- DataTables JS -->
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+
+
+        <style>
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+    }
+        table {
+            width: 66.67%; /* 2/3 크기 */
+            margin: 0 auto; /* 중앙 정렬 */
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.7); /* 70% opacity */
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+        table, th, td {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #ffffff;
+            color: #555;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        a {
+            text-decoration: none;
+            color: cornflowerblue; /* 링크가 걸린 항공편명의 색을 변경 */
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#departures-section">DEPARTURES(출발)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#arrivals-table">ARRIVALS(도착)</a></li> <!-- #arrivals-table은 도착 정보를 보여주는 테이블의 id입니다. -->
+                    <!-- <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li> --> <!-- 필요하지 않은 경우 주석 처리하거나 제거하실 수 있습니다. -->
+                </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+<header class="masthead">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-lg-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">ODIYO? </h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">A complimentary portal for real-time aircraft information by airport.</h2>
+
+                <!-- Airport Selection inside Masthead -->
+<form action="/" method="post" id="airportForm">
+    <div class="airport-selection mt-3" style="text-align: center;">
+        <label for="selectAirport" class="text-white-50">SELECT AN AIRPORT:</label>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <!-- <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 250px;"> -->
+            <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 300px;" onchange="changeBackground()">
+
+                {% for airport in AIRPORT_CODES %}
+                    <option value="{{ airport.code }}" {% if selected_airport == airport.code %}selected{% endif %}>
+                        {{ airport.code }} ({{ airport.name }})
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn btn-modern" style="padding: 4px 8px; font-size: 15px; height: 100%; margin-top: 5px; margin-bottom: 0; margin-left: 10px;">선택</button>
+        </div>
+    </div>
+</form>
+  <p></p>  <p></p>
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-primary" href="#departures-section">Get Started</a>
+
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Departures and Arrivals Section with Background Image -->
+<div class="departures-section" style="background-image: url('{{ url_for('static', filename=airport_image_path) }}'); background-size: cover; background-repeat: no-repeat; background-position: center center; text-align: center;">
+<!-- <div class="flights-section" style="background-image: url('{{ url_for('static', filename='assets/img/bg-masthead1.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;"> -->
+
+<div id="departures-section" style="text-align: center; background-image: url('{{ url_for('static', filename=airport_image_path) }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+    <div class="container">
+        <!-- Departures Information -->
+            <img class="airport-image" src="{{ url_for('static', filename='assets/img/공항별ci/' + selected_airport_name + '.png') }}" alt="{{ selected_airport_name }} 공항 이미지">
+<p></p><p></p><p></p>
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-uppercase">DEPARTURES(출발)</h1>
+                    </div>
+                </div>
+
+
+
+        </div>
+        <div style="text-align: right;">
+            <a href="{{ url_for('index', airport_code=selected_airport, show_all='true') }}" id="showAllButton" class="btn btn-modern" style="padding: 10px 15px; font-size: 15px;">전체보기</a>
+        </div>
+                <div>
+                <div class="table">
+                    <table id="departures-table" class="table-responsive" style="width:100%; color: black;">
+
+                        <thead>
+                            <tr>
+                                <!-- <th>항공사</th> -->
+                                <th>편 명</th>
+                                <th>목적지</th>
+                                <!-- <th>시 간</th> -->
+                                <th>시 간</th> <!-- 변경된 시간-->
+                                <th>탑승구</th>
+                                <th>상 태</th>
+                               <!-- <th>FLYING</th> -->
+                               <!-- <th>FLYING2</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight in departures %}
+                    <tr id="departure-flight-{{ loop.index }}">
+                        <!-- <td>{{ flight.airlineKorean }}</td> -->
+                        <td style="position: relative;">
+                            <img src="{{ url_for('static', filename='assets/img/' + AIRLINE_LOGOS[flight.airFln[:2]]) }}" alt="{{ flight.airlineKorean }}" width="25">
+                            {% if flight.flying2 == "비행 중" %}
+                            {{ flight.airFln }}
+                            <!-- <a href="{{ flight.flight_link }}" target="_blank" style="color: blue;">{{ flight.airFln }}</a> -->
+
+                            <a href="{{ flight.flight_link }}" target="_blank" style="float: right;"><img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45"></a>
+                            {% else %}
+                            {{ flight.airFln }}
+                            {% endif %}
+                        </td>
+                        <td>{{ flight.arrivedKor }}</td>
+                        <!-- <td>{{ flight.std }}</td> -->
+                        <td>{{ flight.etd }}</td>
+                        <td>{{ flight.gate }}</td>
+                        <td>{{ flight.rmkKor }}</td>
+                        <!-- <td>{{ flight.flying }}</td> -->
+                        <!-- <td>{{ flight.flying2 }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+
+<!-- Arrivals Information -->
+        <div id="arrivals-section" style="text-align: center;">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">ARRIVALS(도착)</h1>
+            </div>
+        </div>
+
+        </div>
+            <div>
+                <div>
+                    <div class="table">
+                    <table id="arrivales-table" class="table-responsive" style="width:100%; color: black;">
+
+                        <thead>
+                            <tr>
+                <!-- <th>항공사</th> -->
+                <th>편 명</th>
+                <th>출발지</th>
+                <!-- <th>시 간</th> -->
+                <th>시 간</th> <!-- 변경된 시간-->
+                <th>탑승구</th>
+                <th>상 태</th>
+                <!-- <th>FLYING</th> -->
+                <!-- <th>FLYING2</th> -->
+            </tr>
+        </thead>
+        <tbody id="arrivals-body">
+            {% for flight in arrivals %}
+            <tr id="arrival-flight-{{ loop.index }}">
+                <!-- <td>{{ flight.airlineKorean }}</td> -->
+                <td style="position: relative;">
+                    <img src="{{ url_for('static', filename='assets/img/' + AIRLINE_LOGOS[flight.airFln[:2]]) }}" alt="{{ flight.airlineKorean }}" width="25">
+                    {% if flight.flying2 == "비행 중" %}
+                    {{ flight.airFln }}
+                    <!-- <a href="{{ flight.flight_link }}" target="_blank" style="color: blue;">{{ flight.airFln }}</a> -->
+                    <a href="{{ flight.flight_link }}" target="_blank" style="float: right;"><img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45"></a>
+                    {% else %}
+                    {{ flight.airFln }}
+                    {% endif %}
+                </td>
+
+                <td>{{ flight.boardingKor }}</td>
+                <!-- <td>{{ flight.std }}</td> -->
+                <td>{{ flight.etd }}</td>
+                <td>{{ flight.gate }}</td>
+                <td>{{ flight.rmkKor }}</td>
+                <!-- <td>{{ flight.flying }} -->
+                <!-- <td>{{ flight.flying2 }} -->
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+window.onload = function() {
+    location.hash = "#departures-section";
+};
+
+document.getElementById("selectAirport").addEventListener("change", function() {
+    document.getElementById("airportForm").submit();
+    setTimeout(() => {
+        location.hash = "#departures-section";
+    }, 500);
+});
+
+function changeBackground() {
+    const selectedAirport = document.getElementById('selectAirport').value;
+    const departuresSection = document.querySelector('.departures-section');
+    departuresSection.style.backgroundImage = `url('assets/img/공항별사진/${selectedAirport}공항.jpg')`;
+}
+
+// 페이지 로드 시 초기 배경 설정
+window.onload = function() {
+    changeBackground();
+};
+
+function updateFlightInfo() {
+    const selectedAirport = document.getElementById('selectAirport').value;
+    fetch(`/fetch_info?airport_code=${selectedAirport}`)
+        .then(response => response.json())
+        .then(data => {
+            const departuresTable = document.getElementById('departures-body');
+            departuresTable.innerHTML = '';
+            data.departures.forEach(flight => {
+                let flightName = flight.airFln;
+                let airlineLogo = `<img src="static/assets/img/${AIRLINE_LOGOS[flight.airFln.slice(0, 2)]}" alt="${flight.airlineKorean}" width="50">`; // 로고 이미지 추가
+                if (flight.flying2 === "비행 중") {
+                    flightName = `<a href="${flight.flight_link}" target="_blank" style="color: cornflowerblue;">${flight.airFln}</a>`;
+                }
+                const row = `
+                    <tr>
+                        <td>${flight.airlineKorean} ${airlineLogo}</td> <!-- 로고 이미지 추가 -->
+                        <td>${flightName}</td>
+                        <td>${flight.arrivedKor}</td>
+                        <td>${flight.std}</td>
+                        <td>${flight.etd}</td>
+                        <td>${flight.gate}</td>
+                        <td>${flight.rmkKor}</td>
+                        <td>${flight.flying}</td>
+                        <td>${flight.flying2}</td>
+                    </tr>
+                `;
+                departuresTable.innerHTML += row;
+            });
+
+            const arrivalsTable = document.getElementById('arrivals-body');
+            if (data.arrivals && data.arrivals.length > 0) {
+                arrivalsTable.innerHTML = '';
+                data.arrivals.forEach(flight => {
+                let flightName = flight.airFln;
+                if (flight.flying2 === "비행 중") {
+                    flightName = `<a href="${flight.flight_link}" target="_blank" style="color: cornflowerblue;">${flight.airFln}</a>`;
+                }
+                const row = `
+                    <tr>
+                        <td>${flight.airlineKorean}</td>
+                        <td>${flightName}</td>
+                        <td>${flight.boardingKor}</td>
+                        <td>${flight.std}</td>
+                        <td>${flight.etd}</td>
+                        <td>${flight.gate}</td>
+                        <td>${flight.rmkKor}</td>
+                        <td>${flight.flying}</td>
+                        <td>${flight.flying2}</td>
+                    </tr>
+                `;
+                arrivalsTable.innerHTML += row;
+            });
+        });
+
+}
+
+setInterval(updateFlightInfo, 3000); // 3초마다 업데이트
+
+document.addEventListener('DOMContentLoaded', function() {
+    new simpleDatatables.DataTable(document.getElementById("departures-table"));
+    new simpleDatatables.DataTable(document.getElementById("arrivals-table"));
+});
+
+
+</script>
+
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2023</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+
+    </body>
+</html>
