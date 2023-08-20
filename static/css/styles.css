@@ -646,9 +646,9 @@ progress {
 }
 
 .table-container  {
-    max-height: 400px; /* 10개 항목의 높이에 맞게 조정 */
+    max-height: 300px; /* 10개 항목의 높이에 맞게 조정 */
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.5);  /* 흰색 배경을 70% 불투명도로 설정 */
+    background-color: rgba(255, 255, 255, 0.9);  /* 흰색 배경을 70% 불투명도로 설정 */
 
 }
 
@@ -8296,6 +8296,14 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
 }
 
+.text-center-transparent-bg {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 25px;
+    color: darkblue;
+}
+
 .bg-primary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
@@ -11006,7 +11014,7 @@ body {
 
 #mainNav {
   min-height: 3.5rem;
-  background-color: #fff;
+  background-color: #000000;
 }
 #mainNav .navbar-toggler {
   font-size: 80%;
@@ -11023,7 +11031,7 @@ body {
   padding: 0.9rem 0;
 }
 #mainNav .navbar-nav .nav-item:hover {
-  color: fade(#fff, 80%);
+  color: fade(#000000, 80%);
   outline: none;
   background-color: transparent;
 }

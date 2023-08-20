@@ -74,7 +74,7 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+          <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,16 +82,17 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#departures-section">DEPARTURES(출발)</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#arrivals-table">ARRIVALS(도착)</a></li> <!-- #arrivals-table은 도착 정보를 보여주는 테이블의 id입니다. -->
-                    <!-- <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li> --> <!-- 필요하지 않은 경우 주석 처리하거나 제거하실 수 있습니다. -->
-                </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#departures-section">DEPARTURES(출발)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#arrivals-section">ARRIVALS(도착)</a></li> <!-- #arrivals-table은 도착 정보를 보여주는 테이블의 id입니다. -->
+                        <!-- <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li> --> <!-- 필요하지 않은 경우 주석 처리하거나 제거하실 수 있습니다. -->
+                    </ul>
                 </div>
             </div>
         </nav>
+
         <!-- Masthead-->
-<header class="masthead">
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/하늘길가로.jpg') }}');">
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-lg-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
@@ -116,16 +117,7 @@
         </div>
     </div>
 </form>
-  <p></p>  <p></p>
-
-
-
-
-
-
-
-
-
+  <p></p><p></p><p></p>
 
 
 <a class="btn btn-primary" href="#departures-section">Get Started</a>
@@ -134,31 +126,29 @@
         </div>
     </div>
 </header>
-<!-- Departures and Arrivals Section with Background Image -->
-<div class="departures-section" style="background-image: url('{{ url_for('static', filename=airport_image_path) }}'); background-size: cover; background-repeat: no-repeat; background-position: center center; text-align: center;">
-<!-- <div class="flights-section" style="background-image: url('{{ url_for('static', filename='assets/img/bg-masthead1.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;"> -->
 
-<div id="departures-section" style="text-align: center; background-image: url('{{ url_for('static', filename=airport_image_path) }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
-    <div class="container">
+
+<!-- Departures and Arrivals Section with Background Image -->
+<section class="departures-section">
+    <div class="flights-section" style="background-image: url('{{ url_for('static', filename='assets/img/공항별사진/' + selected_airport_name + '.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
         <!-- Departures Information -->
-            <img class="airport-image" src="{{ url_for('static', filename='assets/img/공항별ci/' + selected_airport_name + '.png') }}" alt="{{ selected_airport_name }} 공항 이미지">
-<p></p><p></p><p></p>
+        <div id="departures-section" style="text-align: center;">
+            <div class="container">
+                <img class="airport-image" src="{{ url_for('static', filename='assets/img/공항별ci/' + selected_airport_name + '.png') }}" alt="{{ selected_airport_name }} 공항 이미지">
+                <p></p><p></p><p></p>
                 <div class="d-flex justify-content-center">
-                    <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">DEPARTURES(출발)</h1>
+                    <div class="text-center text-center-transparent-bg">
+                        Departures(출발)
                     </div>
                 </div>
+                <p></p><p></p><p></p>
 
+                <div style="text-align: right;">
+                    <a href="{{ url_for('index', airport_code=selected_airport, show_all='true') }}" id="showAllButton" class="btn btn-modern" style="padding: 10px 15px; font-size: 15px;">전체보기</a>
+                </div>
 
-
-        </div>
-        <div style="text-align: right;">
-            <a href="{{ url_for('index', airport_code=selected_airport, show_all='true') }}" id="showAllButton" class="btn btn-modern" style="padding: 10px 15px; font-size: 15px;">전체보기</a>
-        </div>
-                <div>
                 <div class="table">
                     <table id="departures-table" class="table-responsive" style="width:100%; color: black;">
-
                         <thead>
                             <tr>
                                 <!-- <th>항공사</th> -->
@@ -196,75 +186,70 @@
                         <!-- <td>{{ flight.flying2 }}</td> -->
                     </tr>
                     {% endfor %}
-                </tbody>
-                    </table>
-                </div>
-                </div>
+                        </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
 
-</div>
+
 
 <!-- Arrivals Information -->
         <div id="arrivals-section" style="text-align: center;">
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">ARRIVALS(도착)</h1>
-            </div>
-        </div>
-
-        </div>
-            <div>
-                <div>
-                    <div class="table">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center text-center-transparent-bg">
+                        ARRIVALS(도착)
+                    </div>
+                </div>
+                <p></p><p></p><p></p>
+                <div class="table">
                     <table id="arrivales-table" class="table-responsive" style="width:100%; color: black;">
-
                         <thead>
                             <tr>
-                <!-- <th>항공사</th> -->
-                <th>편 명</th>
-                <th>출발지</th>
-                <!-- <th>시 간</th> -->
-                <th>시 간</th> <!-- 변경된 시간-->
-                <th>탑승구</th>
-                <th>상 태</th>
-                <!-- <th>FLYING</th> -->
-                <!-- <th>FLYING2</th> -->
-            </tr>
-        </thead>
-        <tbody id="arrivals-body">
-            {% for flight in arrivals %}
-            <tr id="arrival-flight-{{ loop.index }}">
-                <!-- <td>{{ flight.airlineKorean }}</td> -->
-                <td style="position: relative;">
-                    <img src="{{ url_for('static', filename='assets/img/' + AIRLINE_LOGOS[flight.airFln[:2]]) }}" alt="{{ flight.airlineKorean }}" width="25">
-                    {% if flight.flying2 == "비행 중" %}
-                    {{ flight.airFln }}
-                    <!-- <a href="{{ flight.flight_link }}" target="_blank" style="color: blue;">{{ flight.airFln }}</a> -->
-                    <a href="{{ flight.flight_link }}" target="_blank" style="float: right;"><img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45"></a>
-                    {% else %}
-                    {{ flight.airFln }}
-                    {% endif %}
-                </td>
+                            <!-- <th>항공사</th> -->
+                            <th>편 명</th>
+                            <th>출발지</th>
+                            <!-- <th>시 간</th> -->
+                            <th>시 간</th> <!-- 변경된 시간-->
+                            <th>탑승구</th>
+                            <th>상 태</th>
+                            <!-- <th>FLYING</th> -->
+                            <!-- <th>FLYING2</th> -->
+                            </tr>
+                        </thead>
+                <tbody id="arrivals-body">
+                    {% for flight in arrivals %}
+                    <tr id="arrival-flight-{{ loop.index }}">
+                        <!-- <td>{{ flight.airlineKorean }}</td> -->
+                        <td style="position: relative;">
+                            <img src="{{ url_for('static', filename='assets/img/' + AIRLINE_LOGOS[flight.airFln[:2]]) }}" alt="{{ flight.airlineKorean }}" width="25">
+                            {% if flight.flying2 == "비행 중" %}
+                            {{ flight.airFln }}
+                            <!-- <a href="{{ flight.flight_link }}" target="_blank" style="color: blue;">{{ flight.airFln }}</a> -->
+                            <a href="{{ flight.flight_link }}" target="_blank" style="float: right;"><img src="{{ url_for('static', filename='assets/img/flying3.gif') }}" alt="Flying" width="45"></a>
+                            {% else %}
+                            {{ flight.airFln }}
+                            {% endif %}
+                        </td>
 
-                <td>{{ flight.boardingKor }}</td>
-                <!-- <td>{{ flight.std }}</td> -->
-                <td>{{ flight.etd }}</td>
-                <td>{{ flight.gate }}</td>
-                <td>{{ flight.rmkKor }}</td>
-                <!-- <td>{{ flight.flying }} -->
-                <!-- <td>{{ flight.flying2 }} -->
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
+                        <td>{{ flight.boardingKor }}</td>
+                        <!-- <td>{{ flight.std }}</td> -->
+                        <td>{{ flight.etd }}</td>
+                        <td>{{ flight.gate }}</td>
+                        <td>{{ flight.rmkKor }}</td>
+                        <!-- <td>{{ flight.flying }} -->
+                        <!-- <td>{{ flight.flying2 }} -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-</div>
+</section>
 
 <script>
 window.onload = function() {
@@ -277,17 +262,6 @@ document.getElementById("selectAirport").addEventListener("change", function() {
         location.hash = "#departures-section";
     }, 500);
 });
-
-function changeBackground() {
-    const selectedAirport = document.getElementById('selectAirport').value;
-    const departuresSection = document.querySelector('.departures-section');
-    departuresSection.style.backgroundImage = `url('assets/img/공항별사진/${selectedAirport}공항.jpg')`;
-}
-
-// 페이지 로드 시 초기 배경 설정
-window.onload = function() {
-    changeBackground();
-};
 
 function updateFlightInfo() {
     const selectedAirport = document.getElementById('selectAirport').value;

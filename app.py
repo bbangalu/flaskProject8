@@ -15,7 +15,7 @@ SERVICE_KEY = "3jkDYzA2uD6s50OH4zqE/NRd7uXuypkyG0gG7Rq550Dnn4nQYBcUpRKVMELmOpA3v
 AIRPORT_CODES = [
     {"code": "GMP", "name": "김포"},
     {"code": "CJU", "name": "제주"},
-    {"code": "PUS", "name": "부산"},
+    {"code": "PUS", "name": "김해"},
     {"code": "MWX", "name": "무안"},
     {"code": "YNY", "name": "양양"},
     {"code": "CJJ", "name": "청주"},
@@ -87,11 +87,9 @@ def index():
     selected_airport_name = next((airport["name"] for airport in AIRPORT_CODES if airport["code"] == selected_airport), "")
     # 현재 시간을 가져옵니다.
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    airport_image_path = f"assets/img/공항별사진/{selected_airport}.jpg"
 
     return render_template('index.html', departures=departures, arrivals=arrivals, AIRPORT_CODES=AIRPORT_CODES,
-                           selected_airport=selected_airport, AIRLINE_LOGOS=AIRLINE_LOGOS, selected_airport_name=selected_airport_name,
-                           current_time=current_time, show_all=show_all, airport_image_path=airport_image_path)
+                           selected_airport=selected_airport, AIRLINE_LOGOS=AIRLINE_LOGOS, selected_airport_name=selected_airport_name, current_time=current_time, show_all=show_all)
 
 
 
