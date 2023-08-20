@@ -104,24 +104,18 @@
     <div class="airport-selection mt-3" style="text-align: center;">
         <label for="selectAirport" class="text-white-50">SELECT AN AIRPORT:</label>
         <div style="display: flex; justify-content: center; align-items: center;">
-            <!-- <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 250px;"> -->
-            <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 300px;" onchange="changeBackground()">
-
+            <select id="selectAirport" name="airport_code" class="form-control text-uppercase" style="background-color: rgba(0, 0, 0, 0.5); color: white; width: 200px;" onchange="changeBackground()">
                 {% for airport in AIRPORT_CODES %}
                     <option value="{{ airport.code }}" {% if selected_airport == airport.code %}selected{% endif %}>
                         {{ airport.code }} ({{ airport.name }})
                     </option>
                 {% endfor %}
             </select>
-            <button type="submit" class="btn btn btn-modern" style="padding: 4px 8px; font-size: 15px; height: 100%; margin-top: 5px; margin-bottom: 0; margin-left: 10px;">선택</button>
         </div>
     </div>
+                <button type="submit" class="btn btn btn-modern" onclick="submitFormAndNavigate()" style="padding: 4px 8px; font-size: 15px; height: 100%; margin-top: 5px; margin-bottom: 0; margin-left: 10px;">Get Started</button>
+
 </form>
-  <p></p><p></p><p></p>
-
-
-<a class="btn btn-primary" href="#departures-section">Get Started</a>
-
             </div>
         </div>
     </div>
@@ -131,15 +125,19 @@
 <!-- Departures and Arrivals Section with Background Image -->
 <section class="departures-section">
     <div class="flights-section" style="background-image: url('{{ url_for('static', filename='assets/img/공항별사진/' + selected_airport_name + '.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+<p></p><p></p><p></p><p></p><p></p><p></p>
         <!-- Departures Information -->
         <div id="departures-section" style="text-align: center;">
             <div class="container">
+            <p></p><p></p><p></p><p></p><p></p><p></p>
+
                 <img class="airport-image" src="{{ url_for('static', filename='assets/img/공항별ci/' + selected_airport_name + '.png') }}" alt="{{ selected_airport_name }} 공항 이미지">
                 <p></p><p></p><p></p>
                 <div class="d-flex justify-content-center">
                     <div class="text-center text-center-transparent-bg">
-                        Departures(출발)
-                    </div>
+                    Departures(출발)
+                    <div style="font-size: 12px; color: #555;">업데이트 시간: {{ current_time }}</div>
+                </div>
                 </div>
                 <p></p><p></p><p></p>
 
@@ -263,6 +261,13 @@ document.getElementById("selectAirport").addEventListener("change", function() {
     }, 500);
 });
 
+function submitFormAndNavigate() {
+    document.getElementById("airportForm").submit();
+    setTimeout(() => {
+        location.hash = "#departures-section";
+    }, 500);
+}
+
 function updateFlightInfo() {
     const selectedAirport = document.getElementById('selectAirport').value;
     fetch(`/fetch_info?airport_code=${selectedAirport}`)
@@ -319,7 +324,6 @@ function updateFlightInfo() {
 
 }
 
-setInterval(updateFlightInfo, 3000); // 3초마다 업데이트
 
 document.addEventListener('DOMContentLoaded', function() {
     new simpleDatatables.DataTable(document.getElementById("departures-table"));

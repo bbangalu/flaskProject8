@@ -15,7 +15,7 @@ SERVICE_KEY = "3jkDYzA2uD6s50OH4zqE/NRd7uXuypkyG0gG7Rq550Dnn4nQYBcUpRKVMELmOpA3v
 AIRPORT_CODES = [
     {"code": "GMP", "name": "김포"},
     {"code": "CJU", "name": "제주"},
-    {"code": "PUS", "name": "김해"},
+    {"code": "PUS", "name": "부산"},
     {"code": "MWX", "name": "무안"},
     {"code": "YNY", "name": "양양"},
     {"code": "CJJ", "name": "청주"},
@@ -76,6 +76,7 @@ def index():
     elif 'airport_code' in request.args:
         selected_airport = request.args.get('airport_code')
 
+    # 항상 최신 정보를 가져오기 위해 API를 호출
     departures, arrivals = fetch_flight_info(selected_airport)
     mark_flights_in_air(departures, arrivals, selected_airport)
 
@@ -144,7 +145,6 @@ def get_airport_code_from_name(airport_name):
     }
     return airport_name_to_code.get(airport_name)
 
-@lru_cache(maxsize=32)  # Using cache to store results
 def fetch_flight_info(airport_code="USN"):
     params = {
         "ServiceKey": SERVICE_KEY,
